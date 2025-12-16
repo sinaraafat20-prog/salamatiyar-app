@@ -2,295 +2,56 @@
 <html lang="fa" dir="rtl">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device=device-width, initial-scale=1.0">
   <title>سلامتیار - کلینیک دکتر رافت</title>
-  <script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script>
-  <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+  <script src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+  <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
   <script src="https://cdn.tailwindcss.com"></script>
   <script>
     tailwind.config = {
       theme: { extend: { fontFamily: { vazirmatn: ['Vazirmatn', 'sans-serif'] } } }
     }
   </script>
+  <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;600;700&display=swap" rel="stylesheet">
   <style>
-    @import url('https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;600;700&display=swap');
     body { font-family: 'Vazirmatn', sans-serif; direction: rtl; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); min-height: 100vh; margin: 0; color: white; }
-    mark { background-color: #10b981; color: #000; padding: 0.125em 0.25em; border-radius: 0.25em; font-weight: 600; }
-    .glass { backdrop-filter: blur(10px); background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); }
-    .prose { color: white; }
-    .prose h2, .prose h3 { color: white; }
+    .glass { backdrop-filter: blur(20px); background: rgba(255,255,255,0.15); border: 1px solid rgba(255,255,255,0.3); box-shadow: 0 8px 32px rgba(0,0,0,0.3); }
+    mark { background: #10b981; color: #000; padding: 0.125em 0.25em; border-radius: 0.25em; font-weight: 600; }
   </style>
 </head>
 <body>
   <div id="root"></div>
   <script>
-    // داده‌های کامل محتوا (مطالب پزشکی + قابل ویرایش)
-    window.contentData = {
-      clinic: {
-        name: "کلینیک قلب، واریس، لنف و زخم",
-        doctor: "دکتر سینا رافت",
-        phone: "09123456789",
-        address: "تهران، خیابان ولیعصر، پلاک ۱۲۳",
-        map: "https://maps.app.goo.gl/ABC123"  // لینک واقعی گوگل مپ بذار
-      },
+    const data = {
+      clinic: { name: "کلینیک قلب، واریس، لنف و زخم", doctor: "دکتر سینا رافت", phone: "09123456789", map: "https://maps.app.goo.gl/example" },
       topics: [
-        {
-          id: "ghalbi",
-          title: "بیماری‌های قلبی",
-          subtopics: [
-            {
-              id: "faktor",
-              title: "فاکتورهای خطر",
-              articles: [
-                {
-                  id: "feshar",
-                  title: "فشار خون",
-                  subs: [
-                    { 
-                      id: "tairif", 
-                      title: "تعریف", 
-                      content: "فشار خون بالا (هیپرتانسیون) یعنی فشاری که خون به دیواره رگ‌های شریانی وارد می‌کند، بیش از حد طبیعی است. <mark>عدد طبیعی: کمتر از ۱۲۰/۸۰ mmHg</mark>. بالای ۱۴۰/۹۰ = خطرناک!" 
-                    },
-                    { 
-                      id: "alamat", 
-                      title: "علائم", 
-                      content: "اغلب بدون علامت! سردرد صبحگاهی، سرگیجه، تاری دید، درد قفسه سینه، خون‌ریزی بینی. <mark>نصف افراد نمی‌دونن!</mark>" 
-                    },
-                    { 
-                      id: "darman", 
-                      title: "درمان", 
-                      content: "رژیم DASH (کم‌نمک، میوه)، ورزش ۳۰ دقیقه روزانه، داروهای <mark>ACEI/ARB/Beta-blocker</mark>. ویزیت فوری کلینیک!" 
-                    }
-                  ]
-                },
-                {
-                  id: "sigar",
-                  title: "سیگار",
-                  subs: [
-                    { 
-                      id: "taassir", 
-                      title: "تأثیر", 
-                      content: "سیگار خطر سکته قلبی را <mark>۴ برابر</mark> می‌کند. نیکوتین رگ‌ها را تنگ + پلاک می‌سازه. قلیون هم بدتره!" 
-                    },
-                    { 
-                      id: "tark", 
-                      title: "ترک", 
-                      content: "پچ/آدامس نیکوتین، مشاوره، ورزش. بعد ۱ سال خطر نصف، ۱۵ سال = مثل غیرسیگاری!" 
-                    }
-                  ]
-                },
-                {
-                  id: "qand",
-                  title: "قند خون",
-                  subs: [
-                    { id: "1", title: "دیابت", content: "قند بالای ۱۲۶ mg/dl ناشتا = دیابت. خطر انفارکتوس ۲-۴ برابر." },
-                    { id: "2", title: "کنترل", conten
-                      
-t: "رژیم کم‌کربوهیدرات، انسولین/متفورمین، چک سالانه." }
-                  ]
-                }
-              ]
-            },
-            {
-              id: "angio",
-              title: "آنژیوگرافی",
-              articles: [
-                {
-                  id: "chist",
-                  title: "چیست؟",
-                  subs: [
-                    { id: "1", title: "روش", content: "رنگ از مچ دست/کشاله ران به قلب تزریق + عکس‌برداری." },
-                    { id: "2", title: "عوارض", content: "نادر: خونریزی، آلرژی به رنگ." }
-                  ]
-                }
-              ]
-            }
-          ]
-        },
-        {
-          id: "varis",
-          title: "واریس و لنف",
-          subtopics: [
-            {
-              id: "varis",
-              title: "واریس",
-              articles: [
-                {
-                  id: "alamat",
-                  title: "علائم",
-                  subs: [
-                    { id: "1", title: "درد پا", content: "رگ‌های برجسته آبی/بنفش، تورم، درد شبانه، گرفتگی عضله." },
-                    { id: "2", title: "درمان", content: "<mark>جوراب واریس + لیزر/اسکلروتراپی</mark>. جراحی EVLT بدون بخیه!" }
-                  ]
-                }
-              ]
-            },
-            {
-              id: "lenf",
-              title: "مشکلات لنف",
-              articles: [
-                {
-                  id: "1",
-                  title: "لنف ادم",
-                  subs: [{ id: "1", title: "درمان", content: "دренاژ لنفاوی، بانداژ، ورزش." }]
-                }
-              ]
-            }
-          ]
-        },
-        {
-          id: "zakhm",
-          title: "زخم دیابتی",
-          subtopics: [
-            {
-              id: "1",
-              title: "درمان زخم",
-              articles: [
-                {
-                  id: "1",
-                  title: "مراحل",
-                  subs: [{ id: "1", title: "پیشگیری", content: "چک پا روزانه، کفش مناسب." }]
-                }
-              ]
-            }
-          ]
-        }
+        { id: "ghalbi", title: "❤️ بیماری‌های قلبی", subtopics: [{ id: "faktor", title: "فاکتورهای خطر", articles: [{ id: "feshar", title: "فشار خون", subs: [{ title: "تعریف", content: "<mark>طبیعی: <120/80</mark> - درمان: کم‌نمک + دارو" }] }] }] },
+        { id: "varis", title: "🦵 واریس", subtopics: [{ id: "varis", title: "واریس پا", articles: [{ id: "alamat", title: "علائم", subs: [{ title: "درمان", content: "<mark>لیزر EVLT</mark>" }] }] }] }
       ]
     };
+    window.contentData = data;
   </script>
   <script>
-    const { useState, useEffect } = React;
-
-    const App = () => {
-      const [view, setView] = useState('topics');  // topics, subtopics, articles, subs
-      const [currentTopic, setCurrentTopic] = useState(null);
-      const [currentSubtopic, setCurrentSubtopic] = useState(null);
-      const [currentArticle, setCurrentArticle] = useState(null);
-      const [currentSub, setCurrentSub] = useState(null);
+    const { useState } = React;
+    function App() {
       const [search, setSearch] = useState('');
-
-      const data = window.contentData;
-
-      // فیلتر بر اساس جستجو
-      const filteredTopics = data.topics.filter(topic =>
-        topic.title.toLowerCase().includes(search.toLowerCase()) ||
-        topic.subtopics.some(st => st.title.toLowerCase().includes(search.toLowerCase()))
+      const topics = window.contentData.topics.filter(t => t.title.includes(search));
+      const handleCall = () => location.href = tel:${window.contentData.clinic.phone};
+      return React.createElement('div', { className: 'p-4 min-h-screen' },
+        React.createElement('div', { className: 'glass rounded-3xl p-8 mb-8 text-center max-w-4xl mx-auto' },
+          React.createElement('h1', { className: 'text-4xl font-bold mb-4' }, window.contentData.clinic.name),
+          React.createElement('p', { className: 'text-xl mb-6' }, window.contentData.clinic.doctor),
+          React.createElement('button', { onClick: handleCall, className: 'bg-emerald-500 px-8 py-4 rounded-2xl font-bold text-xl mr-4' }, 'تماس'),
+          React.createElement('input', { placeholder: 'جستجو...', value: search, onChange: e => setSearch(e.target.value), className: 'mt-4 w-full p-4 bg-white/20 rounded-xl' })
+        ),
+        ...topics.map(topic => 
+          React.createElement('div', { key: topic.id, className: 'glass rounded-3xl p-8 mb-6 max-w-4xl mx-auto cursor-pointer hover:scale-105 transition-all' },
+            React.createElement('h2', { className: 'text-3xl font-bold' }, topic.title)
+          )
+        )
       );
-
-      const goBack = () => {
-        if (view === 'subs') setView('articles');
-        else if (view === 'articles') setView('subtopics');
-        else if (view === 'subtopics') setView('topics');
-      };
-
-      const handleCall = () => window.location.href = tel:${data.clinic.phone};
-      const handleMap = () => window.open(data.clinic.map, '_blank');
-
-      return (
-        <div className="min-h-screen p-4 md:p-8">
-          {/* Header ثابت */}
-          <div className="glass rounded-3xl p-6 mb-8 shadow-2xl text-center max-w-4xl mx-auto">
-            <div className="text-5xl mb-4 mx-auto w-20 h-20 bg-white/20 rounded-3xl flex items-center justify-center">{data.clinic.logo}</div>
-            <h1 className="text-3xl md:text-4xl font-bold mb-2">{data.clinic.name}</h1>
-            <p className="text-xl md:text-2xl opacity-90 mb-6">{data.clinic.doctor}</p>
-            <div className
-     
-="flex flex-col sm:flex-row gap-4 justify-center">
-              <button onClick={handleCall} className="bg-emerald-500 hover:bg-emerald-600 px-8 py-4 rounded-2xl font-bold text-xl shadow-xl transition-all">
-                📞 تماس {data.clinic.phone}
-              </button>
-              <button onClick={handleMap} className="bg-blue-500 hover:bg-blue-600 px-8 py-4 rounded-2xl font-bold text-xl shadow-xl transition-all">
-                🗺️ آدرس
-              </button>
-            </div>
-          </div>
-
-          {/* جستجو */}
-          <div className="glass rounded-2xl p-6 mb-8 max-w-4xl mx-auto">
-            <input
-              type="text"
-              placeholder="🔍 جستجو در مطالب پزشکی (مثل: فشار خون، واریس)..."
-              value={search}
-              onChange={e => { setSearch(e.target.value); setView('topics'); }}
-              className="w-full p-5 bg-white/20 rounded-2xl text-xl placeholder-white/70 focus:outline-none focus:ring-4 ring-emerald-400/50 transition-all"
-            />
-          </div>
-
-          <div className="max-w-4xl mx-auto space-y-6">
-
-            {/* سطح ۱: Topics */}
-            {view === 'topics' && (
-              <div className="grid md:grid-cols-2 gap-6">
-                {filteredTopics.map(topic => (
-                  <div key={topic.id} className="glass rounded-3xl p-8 hover:scale-105 transition-all cursor-pointer shadow-2xl hover:shadow-emerald-500/25" onClick={() => { setCurrentTopic(topic); setView('subtopics'); }}>
-                    <h2 className="text-2xl md:text-3xl font-bold mb-3">{topic.title}</h2>
-                    <p className="opacity-80 text-lg">{topic.subtopics.length} موضوع فرعی + مقالات کامل</p>
-                  </div>
-                ))}
-              </div>
-            )}
-
-            {/* سطح ۲: Subtopics */}
-            {view === 'subtopics' && currentTopic && (
-              <div>
-                <button onClick={goBack} className="mb-8 px-8 py-4 bg-red-500 hover:bg-red-600 rounded-2xl font-bold text-xl shadow-xl">← بازگشت به موضوعات</button>
-                <h2 className="text-4xl font-bold mb-8 text-center">{currentTopic.title}</h2>
-                <div className="grid md:grid-cols-2 gap-6">
-                  {currentTopic.subtopics.map(subtopic => (
-                    <div key={subtopic.id} className="glass rounded-3xl p-8 hover:scale-105 transition-all cursor-pointer shadow-2xl" onClick={() => { setCurrentSubtopic(subtopic); setView('articles'); }}>
-                      <h3 className="text-2xl font-bold mb-3">{subtopic.title}</h3>
-                      <p className="opacity-80 text-lg">{subtopic.articles.length} مقاله تخصصی</p>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            )}
-
-            {/* سطح ۳: Articles */}
-            {view === 'articles' && currentSubtopic && (
-              <div>
-                <button onClick={goBack} className="mb-8 px-8 py-4 bg-red-500 hover:bg-red-600 rounded-2xl font-bold text-xl shadow-xl">← بازگشت</button>
-                <h2 className="text-4xl font-bold mb-8 text-center">{currentSubtopic.title}</h2>
-                <div className="space-y-6">
-                  {currentSubtopic.articles.map(article => (
-                    <div key={article.id} className="glass rounded-3xl p-8 hover:scale-105 transition-all cursor-pointer shadow-2xl" onClick={() => { setCurrentArticle(article); setView('subs'); }}>
-                      <h3 className="text-2xl font-bold mb-3">{article.title}</h3>
-                      <p className="opacity-80 text-lg">{article.subs.length} نکته کلیدی</p>
-                    </div>
-                  ) 
-)}
-                </div>
-              </div>
-            )}
-
-            {/* سطح ۴: Subs (محتوای کامل) */}
-            {view === 'subs' && currentArticle && currentArticle.subs && (
-              <div>
-                <button onClick={goBack} className="mb-8 px-8 py-4 bg-red-500 hover:bg-red-600 rounded-2xl font-bold text-xl shadow-xl">← بازگشت به مقالات</button>
-                <h2 className="text-4xl font-bold mb-8 text-center">{currentArticle.title}</h2>
-                <div className="space-y-8">
-                  {currentArticle.subs.map(sub => (
-                    <div key={sub.id} className="glass rounded-3xl p-8 shadow-2xl">
-                      <h3 className="text-2xl font-bold mb-4 border-b border-white/20 pb-4">{sub.title}</h3>
-                      <div className="prose prose-lg max-w-none leading-relaxed" 
-                           dangerouslySetInnerHTML={{ __html: sub.content.replace(/\n/g, '<br>') }} />
-                    </div>
-                  ))}
-                </div>
-                <div className="mt-12 text-center p-8 glass rounded-3xl">
-                  <p className="text-xl mb-4">سؤال بیشتری داری؟</p>
-                  <button onClick={handleCall} className="bg-emerald-500 hover:bg-emerald-600 px-12 py-5 rounded-2xl font-bold text-2xl shadow-2xl mx-4">📞 نوبت بگیر</button>
-                </div>
-              </div>
-            )}
-
-          </div>
-        </div>
-      );
-    };
-
-    const root = ReactDOM.createRoot(document.getElementById('root'));
-    root.render(<App />);
+    }
+    ReactDOM.createRoot(document.getElementById('root')).render(React.createElement(App));
   </script>
 </body>
 </html>
